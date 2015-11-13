@@ -21,7 +21,8 @@
 		{% csrf_token %}
 		<div id='search'>
 			<div id='inside'>
-				<input type='input' name='summoner'/>
+				{{ form }}
+				<!--<input type='input' name='summoner'/>-->
 				<input type='submit' name='submit' value='Search'/>
 			</div>
 		</div>

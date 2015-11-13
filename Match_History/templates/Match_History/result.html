@@ -1,1 +1,7 @@
-<h1>NICE</h1>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href= "{% static 'Match_History/format.css' %}" />
+
+{% csrf_token %}
+
+<h1>{{ form }}</h1>
+<h1>{{ something }}</h1>
