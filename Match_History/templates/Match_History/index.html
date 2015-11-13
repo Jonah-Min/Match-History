@@ -1,0 +1,31 @@
+<head>
+	<meta charset="utf-8"> 
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+	<meta name="author" content="Created by Jonah Min">
+	<meta name="description" content="Small League of Legends Match History">
+
+	{% load staticfiles %}
+
+	<link rel="stylesheet" type="text/css" href= "{% static 'Match_History/format.css' %}" />
+	<title>Welcome!</title>
+</head>
+
+<body>
+
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+	<h1>League of Legends Match History</h1>
+	<h3>Search a Summoner!</h3>
+
+	<form method='post' action='/summoner/history/'>
+		{% csrf_token %}
+		<div id='search'>
+			<div id='inside'>
+				<input type='input' name='summoner'/>
+				<input type='submit' name='submit' value='Search'/>
+			</div>
+		</div>
+
+	</form>
+
+</body>	
