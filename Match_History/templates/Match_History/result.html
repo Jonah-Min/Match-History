@@ -1,7 +1,51 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href= "{% static 'Match_History/format.css' %}" />
 
-{% csrf_token %}
+<head>
+	<meta charset="utf-8"> 
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+	<meta name="author" content="Created by Jonah Min">
+	<meta name="description" content="Small League of Legends Match History">
 
-<h1>{{ form }}</h1>
-<h1>{{ something }}</h1>
+	{% load staticfiles %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'Match_History/format.css' %}"/>
+	<title>{{ summoner }}</title>
+</head>
+
+<body>
+
+	<form method='post' action="">
+		<div id='banner'>
+
+			<div id='summoner'>
+				<h3 id='summonername'>{{ summoner }}</h3>
+			</div>
+
+			<div id='nextSearch'>
+				<div id='inside'>
+					<input type='input' name='summoner'/>
+					<input type='submit' name='submit' value='Search'/>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<table id='history'>
+		<tr>
+		{% for i in recent %}
+			{% if i.stats.win == True %}
+				<td class='win'></td>
+				<td class='result'>
+					<div class='score'><h6> {{ i.stats.championsKilled }} / {{ i.stats.numDeaths }} / {{ i.stats.assists }} </h6></div>
+				</td>
+			{% else %}
+				<td class='loss'></td>
+				<td class='result'>
+					<div class='score'><h6> {{ i.stats.championsKilled }} / {{ i.stats.numDeaths }} / {{ i.stats.assists }} </h6></div>
+				</td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+	</table>
+
+
+</body>

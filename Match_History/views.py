@@ -16,7 +16,14 @@ def result(request):
 		if form.is_valid():
 			data = request.POST.get('summoner')
 
-	form = data
-	something = RiotAPI.getSummoner(form)
+	summoner = data
+	summonerName = RiotAPI.formatSummonerName(summoner)
+	summonerDict = RiotAPI.getSummoner(summonerName)
+	summonerID = summonerDict[summonerName]['id']
+	recentGames = RiotAPI.getRecentMatches(summonerID)
+	length = len(recentGames)
 
-	return render(request, 'Match_History/result.html', {'form': form, 'something': something})
+	return render(request, 'Match_History/result.html', {'summoner': summoner,
+		'id' : summonerID,
+		'recent' : recentGames,
+		'length' : length})

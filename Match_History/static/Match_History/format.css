@@ -6,20 +6,20 @@ body, html {
 
 h1 {
 	text-align: center;
-	font-family: Verdana, Arial;
+	font-family: Lucida, Verdana, Arial;
 	color: #505050;
 	#text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
 h3 {
 	text-align: center;
-	font-family: Verdana, Arial;
+	font-family: Lucida, Verdana, Arial;
 	color: #505050;
 }
 
 h6 {
 	text-align: center;
-	font-family: Arial, Verdana;
+	font-family: Lucida, Arial, Verdana;
 	font-size: 12pt;
 }
 

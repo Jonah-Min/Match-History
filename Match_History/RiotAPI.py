@@ -1,17 +1,18 @@
 import json
+import urllib
 import urllib2
 
 KEY = "api_key=556973ba-ec24-4a67-8a7f-97272d28b50a"
 REGION = "na"
-BASE = "https://%s.api.pvp.net/api/lol%s" % (REGION, REGION)
-RECENT = "/v1.4/summoner/by-name/"
+BASE = "https://%s.api.pvp.net/api/lol/%s" % (REGION, REGION)
+RECENT = "/v1.3/game/by-summoner/"
 SUMMONER = "/v1.4/summoner/by-name/"
+CHAMPION = "https://na.api.pvp.net/api/lol/static-data/%s/v1.2/champion/" % (REGION)
 
 def getSummoner (summonerName):
-	urlSummoner = urllib2.urlencode(summonerName)
-	summonerName = formatSummonerName(summonerName)
-	url = "%s%s%s?%s" % (BASE, SUMMONER, urlSummoner, KEY)
-	result = json.loads(urllib2.urlopen(url).read())
+	urlSummoner = summonerName.replace(" ", "%20")
+	url = "%s%s%s?%s" % (BASE, SUMMONER, urlSummoner, KEY)	
+	result = getDict(url)
 	return result
 
 def formatSummonerName (summonerName):
@@ -19,6 +20,31 @@ def formatSummonerName (summonerName):
 	summonerName = summonerName.replace(" ", "")
 	return summonerName
 
+def getRecentMatches (summonerID):
+	url = "%s%s%s/recent?%s" % (BASE, RECENT, summonerID, KEY)
+	print url
+	result = getDict(url)
+	return result["games"]
+
+def getDict (url):
+	dict = json.loads(urllib2.urlopen(url).read())
+	return dict
+
+def getSummonerName (summonerID):
+	url = "%s/v1.4/summoner/%s/name/?%s" % (BASE, summonerID, KEY)
+	dict = getDict(url)
+	return dict
+
+def getChampImage (championID):
+	url = "%s%s?champData=image&%s" % (CHAMPION, championID, KEY)
+	dict = getDict(url)
+	sleep(.5);
+
+	return $result;
+
+#id = getSummoner("mk kraken")
+#summonerName = getSummonerName("id")
+#print summonerName
 
 """
 <?php
