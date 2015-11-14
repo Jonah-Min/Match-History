@@ -10,7 +10,8 @@ class summoner(models.Model):
 
 class champion(models.Model):
 	ChampionName = models.CharField(max_length=100)
-	ChampID = models.CharField(max_length=20, default="")
+	ChampionID = models.CharField(max_length=20, default="")
+	ChampImg = models.CharField(max_length=20, default="")
 
 	def __unicode__ (self):
 		return self.ChampionName	
