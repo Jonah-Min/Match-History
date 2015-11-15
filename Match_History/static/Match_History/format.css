@@ -4,6 +4,12 @@ body, html {
 	padding: 0;
 }
 
+li {
+	margin: 0;
+	padding: 0;
+	line-height: 0px;
+}
+
 h1 {
 	text-align: center;
 	font-family: Lucida, Verdana, Arial;
@@ -11,9 +17,28 @@ h1 {
 	#text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
+h2 {
+	text-align: center;
+	font-family: Lucida, Verdana, Arial;
+	color: #505050;
+}
+
 h3 {
 	text-align: center;
 	font-family: Lucida, Verdana, Arial;
+	color: #505050;
+}
+
+h5 {
+	font-family: Lucida, Verdana, Arial;
+	color: #505050;
+	float: left;
+}
+
+p {
+	font-family: Lucida, Verdana, Arial;
+	vertical-align: center;
+	display: inline-block;
 	color: #505050;
 }
 
@@ -59,7 +84,7 @@ input[name='summoner2'] {
 #summonername {
 	color: white;
 	font-size: 25pt;
-	margin-left: 20px;
+	margin-left: 10px;
 	margin-bottom: 200px;
 }
 
@@ -76,7 +101,7 @@ input[name='summoner2'] {
 	height: 50px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #FF7260;
+	background-color: #2e403f;
 }
 
 #nextSearch {
@@ -84,7 +109,7 @@ input[name='summoner2'] {
 	height: 50px;
 	margin-left: 10px;
 	margin-right: 25px;
-	background-color: #FF7260;
+	background-color: #2e403f;
 	margin-top: 15px;
 	float: right;
 	display: inline-block;
@@ -104,6 +129,7 @@ input[name='summoner2'] {
 	border-collapse: collapse;
 	border-spacing: 0;
 	display: block;
+	margin-bottom: 20px;
 }
 
 .matches {
@@ -113,7 +139,7 @@ input[name='summoner2'] {
 .win {
 	height: 100px;
 	width: 20px;
-	background-color: #9bd7b7;
+	background-color: #67c164;
 	margin-right: 0px;
 }
 
@@ -124,6 +150,12 @@ input[name='summoner2'] {
 	margin-right: 0px;
 }
 
+.summs {
+	height: 35px;
+	width: 35px;
+	border: 3px solid #3e5655;
+}
+
 .result {
 	height: 100px;
 	width: 100px;
@@ -131,37 +163,96 @@ input[name='summoner2'] {
 	font-size: 25px;
 	font-family: Verdana;
 	color: #2e403f;
+	background-color: #d7d59b;
 }
 
 .red {
 	height: 100px;
-	width: 150px;
+	width: 300px;
 	background-color: #d79b9d;
 	border: 0px;
 }
 
 .blue {
 	height: 100px;
-	width: 150px;
+	width: 300px;
 	background-color: #9bbbd7;
 	border: 0px;
 }
 
-td, tr {
-	border: 5px solid #5d817f;
+td, tr {	
+	border: 5px solid #2e403f;
+}
+
+th {
+	height: 0px;
+	background-color: #2e403f;
+	border: 0;
+}
+
+.game {
+	font-family: Lucida, Verdana, Arial;
+	color: white;
+	float: left;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-left: 10px;
 }
 
 .img-circle {
 	border-radius: 50%;
-	height: 50px;
-	width: 50px;
-	#margin-top: -20px;
+	height: 75px;
+	width: 75px;
+}
+
+.small {
+	border: 2px solid #3e5655;
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+}
+
+.img {
+	height: 35px;
+	width: 35px;
+	border: 3px solid #3e5655;
+}
+
+.thissummoner {
+	font-family: Lucida, Verdana, Arial;
+	vertical-align: center;
+	display: inline-block;
+	color: #1f2b2a;
+}
+
+.imageicon {
+	height: 30px;
+	width: 30px;
+	padding: 3px;
+	border: 0;
+}
+
+.items {
+	width: 150px;
+}
+
+.itemtable {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .score {
 	height: 10px;
 	margin-top: -30px;
 	margin-bottom: 10px;
+}
+
+.icon {
+	width: 75px;
+	height: 75px;
+	margin-left: 10px;
+	margin-top: 10px;
+	border: 4px solid white;
 }
 
 .players {

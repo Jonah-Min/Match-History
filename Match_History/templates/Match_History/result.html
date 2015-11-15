@@ -13,39 +13,108 @@
 
 <body>
 
-	<form method='post' action="">
+
+	{% load url %}
+
+	<form method='post' action="/summoner/history/">
 		<div id='banner'>
+
+			<image class='icon' src="{{ icon|summicon }}"  />
 
 			<div id='summoner'>
 				<h3 id='summonername'>{{ summoner }}</h3>
 			</div>
 
+			{% csrf_token %}
 			<div id='nextSearch'>
 				<div id='inside'>
-					<input type='input' name='summoner'/>
+					{{ form }}
 					<input type='submit' name='submit' value='Search'/>
 				</div>
 			</div>
 		</div>
 	</form>
 
+	{% if error == "Summoner Not Found" %}
+	<h2>Summoner Not Found</h2>
+	{% else %}
+
 	<table id='history'>
-		<tr>
 		{% for i in recent %}
+		<tr class='short'>
+			<th colspan="5"><p class='game'>{{ i.subType|format }}</p></th>
+		</tr>
+		<tr>
 			{% if i.stats.win == True %}
 				<td class='win'></td>
 				<td class='result'>
-					<div class='score'><h6> {{ i.stats.championsKilled }} / {{ i.stats.numDeaths }} / {{ i.stats.assists }} </h6></div>
+					<image class='img-circle' src="{{ i.championId|url }}"/>
+					<div class='score'><h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6></div>
+					<div class='spells'>
+						<image class='summs' src="{{ i.spell1|summspell }}"/>
+						<image class='summs' src="{{ i.spell2|summspell }}"/>
+					</div>
 				</td>
 			{% else %}
 				<td class='loss'></td>
 				<td class='result'>
-					<div class='score'><h6> {{ i.stats.championsKilled }} / {{ i.stats.numDeaths }} / {{ i.stats.assists }} </h6></div>
+					<image class='img-circle' src="{{ i.championId|url }}"/>
+					<div class='score'><h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6></div>
+					<div class='spells'>
+						<image class='summs' src="{{ i.spell1|summspell }}"/>
+						<image class='summs' src="{{ i.spell2|summspell }}"/>
+					</div>
 				</td>
 			{% endif %}
+
+			<td class='items'>
+				<table class='itemtable'>
+						<tr>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item0|itemimg }}"></td>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item1|itemimg }}"></td>
+						</tr>
+						<tr>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item2|itemimg }}"></td>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item3|itemimg }}"></td>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item6|itemimg }}"></td>
+						</tr>
+						<tr>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item4|itemimg }}"></td>
+							<td class='imageicon'><image class='img' src="{{ i.stats.item5|itemimg }}"></td>
+						</tr>
+				</table>
+			</td>
+
+			<td class='blue'>
+				<ul class='players'>
+					{% for k in i.fellowPlayers %}
+						{% if k.teamId == 100 %}
+						<li><image class='small' src="{{ k.championId|url }}"> <p>{{ k.summonerId|summ }}</p></li>
+						{% endif %}
+					{% endfor %}
+					{% if i.teamId = 100 %}
+						<li><image class='small' src="{{ i.championId|url }}"> <p class='thissummoner'>{{ summoner }}</p></li>
+					{% endif %}
+				</ul>
+			</td>
+
+			<td class='red'>
+				<ul class='players'>
+					{% for k in i.fellowPlayers %}
+						{% if k.teamId == 200 %}
+						<li><image class='small' src="{{ k.championId|url }}"> <p>{{ k.summonerId|summ }}</p></li>
+						{% endif %}
+					{% endfor %}
+					{% if i.teamId = 200 %}
+						<li><image class='small' src="{{ i.championId|url }}"> <p class='thissummoner'>{{ summoner }}</p></li>
+					{% endif %}
+				</ul>
+			</td>
+
 		</tr>
 		{% endfor %}
 	</table>
+	{% endif %}
 
 
 </body>

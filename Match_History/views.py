@@ -19,11 +19,24 @@ def result(request):
 	summoner = data
 	summonerName = RiotAPI.formatSummonerName(summoner)
 	summonerDict = RiotAPI.getSummoner(summonerName)
-	summonerID = summonerDict[summonerName]['id']
-	recentGames = RiotAPI.getRecentMatches(summonerID)
-	length = len(recentGames)
+
+	if summonerDict == "Summoner Not Found":
+		summonerID = summoner
+		summonerIcon = -1
+		recentGames = []
+		error = "Summoner Not Found"
+		length = 0
+	else:
+		summonerID = summonerDict[summonerName]['id']
+		summonerIcon = summonerDict[summonerName]['profileIconId']
+		recentGames = RiotAPI.getRecentMatches(summonerID)
+		length = len(recentGames)
+		error = ""
 
 	return render(request, 'Match_History/result.html', {'summoner': summoner,
+		'error' : error,
 		'id' : summonerID,
+		'icon' : summonerIcon,
 		'recent' : recentGames,
-		'length' : length})
+		'length' : length,
+		'form' : form})
