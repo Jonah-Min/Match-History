@@ -40,9 +40,14 @@ def getDict (url):
 	try:
    		urllib2.urlopen(url)
 	except urllib2.HTTPError, err:
-   		if err.code == 404:
+   		if err.code == 404 or err.code == 400:
    			dict = "Summoner Not Found"
-       		print dict
+   		elif err.code == 401:
+   			dict = "Unathorized Access"
+   		elif err.code == 429:
+   			dict = "Try Again Later"
+   		elif err.code == 500 or err.code == 503:
+   			dict = "Server is Down, Try Again Later"
        	else:
        		dict = json.loads(urllib2.urlopen(url).read())
 

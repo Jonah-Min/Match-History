@@ -24,7 +24,25 @@ def result(request):
 		summonerID = summoner
 		summonerIcon = -1
 		recentGames = []
-		error = "Summoner Not Found"
+		error = summonerDict
+		length = 0
+	elif summonerDict == "Unathorized Access":
+		summonerID = summoner
+		summonerIcon = -1
+		recentGames = []
+		error = summonerDict
+		length = 0
+	elif summonerDict == "Try Again Later":
+		summonerID = summoner
+		summonerIcon = -1
+		recentGames = []
+		error = "Rate Limit Exceeded, Try Again Later"
+		length = 0
+	elif summonerDict == "Server is Down, Try Again Later":
+		summonerID = summoner
+		summonerIcon = -1
+		recentGames = []
+		error = summonerDict
 		length = 0
 	else:
 		summonerID = summonerDict[summonerName]['id']

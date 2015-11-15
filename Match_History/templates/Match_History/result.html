@@ -42,7 +42,9 @@
 	<table id='history'>
 		{% for i in recent %}
 		<tr class='short'>
-			<th colspan="5"><p class='game'>{{ i.subType|format }}</p></th>
+			<th colspan="5">
+				<p class='game'>{{ i.subType|format }}</p>
+			</th>
 		</tr>
 		<tr>
 			{% if i.stats.win == True %}
