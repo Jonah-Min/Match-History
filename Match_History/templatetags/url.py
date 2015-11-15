@@ -14,6 +14,12 @@ BASE = "https://%s.api.pvp.net/api/lol/%s" % (REGION, REGION)
 
 register = template.Library()
 
+@register.filter(name = 'timeformat')
+def formatTime(seconds):
+	minutes, seconds = divmod(seconds, 60)
+	time = "%d:%02d" % (minutes, seconds)
+	return time
+
 @register.filter(name = 'url')
 def url(ChampionID):
 	champ = champion.objects.get(ChampionID = ChampionID)

@@ -42,8 +42,11 @@
 	<table id='history'>
 		{% for i in recent %}
 		<tr class='short'>
-			<th colspan="5">
+			<th colspan="3">
 				<p class='game'>{{ i.subType|format }}</p>
+			</th>
+			<th colspan="2">
+				<p class='time'>{{ i.stats.timePlayed|timeformat }}</p>
 			</th>
 		</tr>
 		<tr>
