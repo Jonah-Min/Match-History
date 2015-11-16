@@ -14,12 +14,14 @@ BASE = "https://%s.api.pvp.net/api/lol/%s" % (REGION, REGION)
 
 register = template.Library()
 
+#Formats game length time
 @register.filter(name = 'timeformat')
 def formatTime(seconds):
 	minutes, seconds = divmod(seconds, 60)
 	time = "%d:%02d" % (minutes, seconds)
 	return time
 
+#Using Champion ID, grabs url for image
 @register.filter(name = 'url')
 def url(ChampionID):
 	champ = champion.objects.get(ChampionID = ChampionID)
@@ -27,6 +29,7 @@ def url(ChampionID):
 	url = "%s%s" % (CHAMPIMG, champURL)
 	return url
 
+#Grabs summoner icon image url
 @register.filter(name = 'summicon')
 def summicon(iconID):
 	if iconID < 0:
@@ -37,6 +40,7 @@ def summicon(iconID):
 		url = "%s%s.png" % (ICON, iconID)
 	return url
 
+#Grabs image link for summoner spells
 @register.filter(name = 'summspell')
 def summSpell(iconID):
 	query = summonerSpell.objects.filter(summID = iconID)
@@ -48,6 +52,8 @@ def summSpell(iconID):
 		url = "%s%s" % (SPELL, imgName)
 	return url
 
+#Grabs image url of item
+#Default image for when item is missing
 @register.filter(name = 'itemimg')
 def itemurl(itemID):
 	itemobj = item.objects.filter(itemID = itemID)
@@ -59,6 +65,7 @@ def itemurl(itemID):
 		url = "%s%s" % (ITEM, itemURL)
 	return url
 
+#Grabs summoner name, if it doesn't exist in the tables, adds new entry
 @register.filter(name = 'summ')
 def getSummName(summonerID):
 	query = summoner.objects.filter(SummonerID = summonerID)
@@ -78,6 +85,7 @@ def getSummName(summonerID):
 		print "LOL"
 	return summonername
 
+#Removes underscores, also has several special edges cases for the constants
 @register.filter(name = 'format')
 def formatGameType(gametype):
 	toReturn = gametype.replace('_', ' ')
@@ -91,6 +99,7 @@ def formatGameType(gametype):
 		toReturn = "TWISTED TREELINE"
 	return toReturn
 
+#Grabs api json result and converts to dictionary
 def getDict (url):
 	dict = json.loads(urllib2.urlopen(url).read())
 	return dict
