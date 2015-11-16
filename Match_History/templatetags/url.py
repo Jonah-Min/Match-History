@@ -75,6 +75,7 @@ def getSummName(summonerID):
 	else:
 		summonerresult = summoner.objects.get(SummonerID = summonerID)
 		summonername = summonerresult.SummonerName
+		print "LOL"
 	return summonername
 
 @register.filter(name = 'format')
