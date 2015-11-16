@@ -31,6 +31,8 @@ def url(ChampionID):
 def summicon(iconID):
 	if iconID < 0:
 		url = "http://i.imgur.com/YwtIiZT.jpg"
+	elif isinstance(iconID, str):
+		url = iconID
 	else:
 		url = "%s%s.png" % (ICON, iconID)
 	return url
@@ -84,6 +86,8 @@ def formatGameType(gametype):
 		toReturn = "TEAM BUILDER"
 	elif toReturn == "ONEFORALL 5x5":
 		toReturn = "ONE FOR ALL"
+	elif toReturn == "ODIN UNRANKED":
+		toReturn = "TWISTED TREELINE"
 	return toReturn
 
 def getDict (url):

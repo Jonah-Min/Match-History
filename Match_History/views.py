@@ -44,6 +44,12 @@ def result(request):
 		recentGames = []
 		error = summonerDict
 		length = 0
+	elif summoner == "acepie":
+		summonerID = summonerDict[summonerName]['id']
+		summonerIcon = "http://static.dnaindia.com/sites/default/files/2015/10/02/361285-john-cena-2.jpg"
+		recentGames = RiotAPI.getRecentMatches(summonerID)
+		length = len(recentGames)
+		error = ""
 	else:
 		summonerID = summonerDict[summonerName]['id']
 		summonerIcon = summonerDict[summonerName]['profileIconId']

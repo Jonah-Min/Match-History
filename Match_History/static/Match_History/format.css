@@ -84,7 +84,7 @@ input[name='summoner2'] {
 #summonername {
 	color: white;
 	font-size: 25pt;
-	margin-left: 10px;
+	margin-left: 0px;
 	margin-bottom: 200px;
 }
 
@@ -244,6 +244,7 @@ th {
 
 .items {
 	width: 150px;
+	background-color: #7cacaa;
 }
 
 .itemtable {
