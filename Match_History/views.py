@@ -20,19 +20,19 @@ def result(request):
 	summonerName = RiotAPI.formatSummonerName(summoner)
 	summonerDict = RiotAPI.getSummoner(summonerName)
 
-	if summonerDict == "Summoner Not Found":
+	if summonerDict == "404":
 		summonerID = summoner
 		summonerIcon = -1
 		recentGames = []
 		error = summonerDict
 		length = 0
-	elif summonerDict == "Unathorized Access":
+	elif summonerDict == "401":
 		summonerID = summoner
 		summonerIcon = -1
 		recentGames = []
 		error = summonerDict
 		length = 0
-	elif summonerDict == "Try Again Later":
+	elif summonerDict == "429":
 		summonerID = summoner
 		summonerIcon = -1
 		recentGames = []
@@ -47,6 +47,14 @@ def result(request):
 	elif summoner == "acepie":
 		summonerID = summonerDict[summonerName]['id']
 		summonerIcon = "http://static.dnaindia.com/sites/default/files/2015/10/02/361285-john-cena-2.jpg"
+		recentGames = RiotAPI.getRecentMatches(summonerID)
+		length = len(recentGames)
+		error = ""
+	elif summoner == "rouged":
+		return render(request, 'Match_History/kiara.html')
+	elif summoner == "toona":
+		summonerID = summonerDict[summonerName]['id']
+		summonerIcon = "http://images1.houstonpress.com/imager/u/original/6417352/canned_tuna1.jpg"
 		recentGames = RiotAPI.getRecentMatches(summonerID)
 		length = len(recentGames)
 		error = ""

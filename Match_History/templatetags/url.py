@@ -72,17 +72,15 @@ def getSummName(summonerID):
 	if not query:
 		url = "%s/v1.4/summoner/%s/name/?%s" % (BASE, summonerID, KEY)
 		dict = getDict(url)
-		time.sleep(1)
+		time.sleep(.75)
 		summonername = dict[str(summonerID)]
 		summ = summoner()
 		summ.SummonerName = summonername
 		summ.SummonerID = summonerID
-		print summonername
 		summ.save()
 	else:
 		summonerresult = summoner.objects.get(SummonerID = summonerID)
 		summonername = summonerresult.SummonerName
-		print "LOL"
 	return summonername
 
 #Removes underscores, also has several special edges cases for the constants
@@ -97,6 +95,8 @@ def formatGameType(gametype):
 		toReturn = "ONE FOR ALL"
 	elif toReturn == "ODIN UNRANKED":
 		toReturn = "TWISTED TREELINE"
+	elif toReturn == "NONE":
+		toReturn = "CUSTOM"
 	return toReturn
 
 #Grabs api json result and converts to dictionary

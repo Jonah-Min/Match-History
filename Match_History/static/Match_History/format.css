@@ -132,6 +132,11 @@ input[name='summoner2'] {
 	margin-bottom: 20px;
 }
 
+#kiara {
+	height: 720px;
+	width: 720px;
+}
+
 .matches {
 	background-color: #FFF5C3;
 }
