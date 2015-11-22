@@ -4,15 +4,12 @@
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 	<meta name="author" content="Created by Jonah Min">
 	<meta name="description" content="Small League of Legends Match History">
-
 	{% load staticfiles %}
-
 	<link rel="stylesheet" type="text/css" href="{% static 'Match_History/format.css' %}"/>
 	<title>{{ summoner }}</title>
 </head>
 
 <body>
-
 
 	{% load url %}
 
@@ -54,7 +51,9 @@
 				<td class='win'></td>
 				<td class='result'>
 					<image class='img-circle' src="{{ i.championId|url }}"/>
-					<div class='score'><h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6></div>
+					<div class='score'>
+						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+					</div>
 					<div class='spells'>
 						<image class='summs' src="{{ i.spell1|summspell }}"/>
 						<image class='summs' src="{{ i.spell2|summspell }}"/>
@@ -64,7 +63,9 @@
 				<td class='loss'></td>
 				<td class='result'>
 					<image class='img-circle' src="{{ i.championId|url }}"/>
-					<div class='score'><h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6></div>
+					<div class='score'>
+						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+					</div>
 					<div class='spells'>
 						<image class='summs' src="{{ i.spell1|summspell }}"/>
 						<image class='summs' src="{{ i.spell2|summspell }}"/>
@@ -75,30 +76,46 @@
 			<td class='items'>
 				<table class='itemtable'>
 						<tr>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item0|itemimg }}"></td>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item1|itemimg }}"></td>
+							<td class='imageicon'><image class='img' 
+								data-toggle="tooltip" title="{{ i.stats.item0|desc }}" src="{{ i.stats.item0|itemimg }}"></td>
+							<td class='imageicon'><image class='img' 
+								data-toggle="tooltip" title="{{ i.stats.item1|desc }}" src="{{ i.stats.item1|itemimg }}"></td>
 						</tr>
 						<tr>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item2|itemimg }}"></td>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item3|itemimg }}"></td>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item6|itemimg }}"></td>
+							<td class='imageicon'><image class='img'
+								data-toggle="tooltip" title="{{ i.stats.item2|desc }}" src="{{ i.stats.item2|itemimg }}"></td>
+							<td class='imageicon'><image class='img' 
+								data-toggle="tooltip" title="{{ i.stats.item3|desc }}" src="{{ i.stats.item3|itemimg }}"></td>
+							<td class='imageicon'><image class='img' 
+								data-toggle="tooltip" title="{{ i.stats.item6|desc }}" src="{{ i.stats.item6|itemimg }}"></td>
 						</tr>
 						<tr>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item4|itemimg }}"></td>
-							<td class='imageicon'><image class='img' src="{{ i.stats.item5|itemimg }}"></td>
+							<td class='imageicon'><image class='img' 
+								data-toggle="tooltip" title="{{ i.stats.item4|desc }}" src="{{ i.stats.item4|itemimg }}"></td>
+							<td class='imageicon'><image class='img' 
+								data-toggle="tooltip" title="{{ i.stats.item5|desc }}" src="{{ i.stats.item5|itemimg }}"></td>
 						</tr>
 				</table>
 			</td>
+
+			<form method='post' action='/summoner/history/'>
+			{% csrf_token %}
 
 			<td class='blue'>
 				<ul class='players'>
 					{% for k in i.fellowPlayers %}
 						{% if k.teamId == 100 %}
-						<li><image class='small' src="{{ k.championId|url }}"> <p>{{ k.summonerId|summ }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ k.championId|url }}">
+							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+						</li>
 						{% endif %}
 					{% endfor %}
 					{% if i.teamId = 100 %}
-						<li><image class='small' src="{{ i.championId|url }}"> <p class='thissummoner'>{{ summoner }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ i.championId|url }}">
+							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
+						</li>
 					{% endif %}
 				</ul>
 			</td>
@@ -107,11 +124,17 @@
 				<ul class='players'>
 					{% for k in i.fellowPlayers %}
 						{% if k.teamId == 200 %}
-						<li><image class='small' src="{{ k.championId|url }}"> <p>{{ k.summonerId|summ }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ k.championId|url }}">
+							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+						</li>
 						{% endif %}
 					{% endfor %}
 					{% if i.teamId = 200 %}
-						<li><image class='small' src="{{ i.championId|url }}"> <p class='thissummoner'>{{ summoner }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ i.championId|url }}">
+							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
+						</li>
 					{% endif %}
 				</ul>
 			</td>

@@ -278,3 +278,18 @@ th {
 	margin-left: -25px;
 	list-style-type: none;
 }
+
+button {
+	background:none;
+    border:none; 
+    cursor: pointer;
+    font-family: Lucida, Verdana, Arial;
+    font-size: 12pt;
+    color: #505050;
+    vertical-align: middle;
+}
+
+.teamlist {
+	padding: 2px;
+}
+

@@ -25,6 +25,7 @@ class item(models.Model):
 	itemName = models.CharField(max_length=100)
 	itemID = models.CharField(max_length=20, default="")
 	itemUrl = models.CharField(max_length=20, default="")
+	itemDesc = models.CharField(max_length=200, default="")
 
 	def __unicode__ (self):
 		return self.itemName

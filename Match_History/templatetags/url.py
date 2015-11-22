@@ -72,7 +72,7 @@ def getSummName(summonerID):
 	if not query:
 		url = "%s/v1.4/summoner/%s/name/?%s" % (BASE, summonerID, KEY)
 		dict = getDict(url)
-		time.sleep(.75)
+		time.sleep(1)
 		summonername = dict[str(summonerID)]
 		summ = summoner()
 		summ.SummonerName = summonername
@@ -99,7 +99,21 @@ def formatGameType(gametype):
 		toReturn = "CUSTOM"
 	return toReturn
 
+@register.filter(name = "desc")
+def getDesc(itemID):
+	itemobj = item.objects.filter(itemID = itemID)
+	if not itemobj:
+		toReturn = ""
+	else:
+		itemobj = item.objects.get(itemID = itemID)
+		itemDesc = itemobj.itemDesc
+		itemName = itemobj.itemName
+		toReturn = "%s\n\n%s" % (itemName, itemDesc)
+	return toReturn
+
 #Grabs api json result and converts to dictionary
 def getDict (url):
 	dict = json.loads(urllib2.urlopen(url).read())
 	return dict
+
+

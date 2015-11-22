@@ -2,6 +2,7 @@ import json
 import urllib
 import urllib2
 import time
+import re
 from Match_History.models import champion, item, summonerSpell, summoner
 
 KEY = "api_key=556973ba-ec24-4a67-8a7f-97272d28b50a"
@@ -100,9 +101,13 @@ def setupSumms():
 
 #Adds summoner spells to table
 def setupItem():
-	item = "%s%s" % (ITEM, KEY)
-	itemdict = getDict(item)['data']
+	itemurl = "%s%s" % (ITEM, KEY)
+	itemdict = getDict(itemurl)['data']
 	for i in itemdict:
+		description = itemdict[i]['description']
+		description = description.replace('<br>', '\n')
+		description = re.sub(r'\<[^>]*\>', "", description)
+		print description
 		ID = itemdict[i]['id']
 		name = itemdict[i]['name']
 		img = itemdict[i]['image']['full']
@@ -113,6 +118,7 @@ def setupItem():
 		itemtable.itemID = ID
 		itemtable.itemUrl = img
 		itemtable.itemName = name
+		itemtable.itemDesc = description
 		itemtable.save()		
 
 #in case I want to set up tables again

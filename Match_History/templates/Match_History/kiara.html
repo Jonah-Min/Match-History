@@ -54,7 +54,9 @@
 				<td class='win'></td>
 				<td class='result'>
 					<image class='img-circle' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
-					<div class='score'><h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6></div>
+					<div class='score'>
+						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+					</div>
 					<div class='spells'>
 						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
 						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
@@ -64,7 +66,9 @@
 				<td class='loss'></td>
 				<td class='result'>
 					<image class='img-circle' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
-					<div class='score'><h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6></div>
+					<div class='score'>
+						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+					</div>
 					<div class='spells'>
 						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
 						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
@@ -90,15 +94,24 @@
 				</table>
 			</td>
 
+			<form method='post' action='/summoner/history/'>
+			{% csrf_token %}
+
 			<td class='blue'>
 				<ul class='players'>
 					{% for k in i.fellowPlayers %}
 						{% if k.teamId == 100 %}
-						<li><image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"> <p>{{ k.summonerId|summ }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ k.championId|url }}">
+							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+						</li>
 						{% endif %}
 					{% endfor %}
 					{% if i.teamId = 100 %}
-						<li><image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"> <p class='thissummoner'>{{ summoner }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ i.championId|url }}">
+							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
+						</li>
 					{% endif %}
 				</ul>
 			</td>
@@ -107,14 +120,21 @@
 				<ul class='players'>
 					{% for k in i.fellowPlayers %}
 						{% if k.teamId == 200 %}
-						<li><image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"> <p>{{ k.summonerId|summ }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ k.championId|url }}">
+							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+						</li>
 						{% endif %}
 					{% endfor %}
 					{% if i.teamId = 200 %}
-						<li><image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"> <p class='thissummoner'>{{ summoner }}</p></li>
+						<li class='teamlist'>
+							<image class='small' src="{{ i.championId|url }}">
+							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
+						</li>
 					{% endif %}
 				</ul>
 			</td>
+		</form>
 
 		</tr>
 		{% endfor %}

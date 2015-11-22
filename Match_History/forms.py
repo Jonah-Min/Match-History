@@ -8,3 +8,5 @@ class summonerForm(forms.Form):
 
 	def is_valid(self):
 		return True
+
+		
