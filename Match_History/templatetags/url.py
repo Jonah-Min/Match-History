@@ -24,9 +24,13 @@ def formatTime(seconds):
 #Using Champion ID, grabs url for image
 @register.filter(name = 'url')
 def url(ChampionID):
-	champ = champion.objects.get(ChampionID = ChampionID)
-	champURL = champ.ChampImg
-	url = "%s%s" % (CHAMPIMG, champURL)
+	champ = champion.objects.filter(ChampionID = ChampionID)
+	if not champ:
+		url = "http://hex-color.com/images/1F2B2A.jpg"
+	else:
+		champ = champion.objects.get(ChampionID = ChampionID)
+		champURL = champ.ChampImg
+		url = "%s%s" % (CHAMPIMG, champURL)
 	return url
 
 #Grabs summoner icon image url
@@ -111,9 +115,21 @@ def getDesc(itemID):
 		toReturn = "%s\n\n%s" % (itemName, itemDesc)
 	return toReturn
 
+#Grabs champion name from tables based off id
+@register.filter(name = 'name')
+def getChampName(champID):
+	champ = champion.objects.filter(ChampionID = champID)
+	if not champ:
+		name = "Champion not found"
+	else:
+		champ = champion.objects.get(ChampionID = champID)
+		name = champ.ChampionName
+	return name
+
 #Grabs api json result and converts to dictionary
 def getDict (url):
 	dict = json.loads(urllib2.urlopen(url).read())
 	return dict
+
 
 

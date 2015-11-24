@@ -1,4 +1,4 @@
-
+<html>
 <head>
 	<meta charset="utf-8"> 
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -106,14 +106,14 @@
 					{% for k in i.fellowPlayers %}
 						{% if k.teamId == 100 %}
 						<li class='teamlist'>
-							<image class='small' src="{{ k.championId|url }}">
+							<image class='small' src="{{ k.championId|url }}" title="{{ k.championId|name }}">
 							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
 						</li>
 						{% endif %}
 					{% endfor %}
 					{% if i.teamId = 100 %}
 						<li class='teamlist'>
-							<image class='small' src="{{ i.championId|url }}">
+							<image class='small' src="{{ i.championId|url }}" title="{{ i.championId|name }}">
 							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
 						</li>
 					{% endif %}
@@ -125,14 +125,14 @@
 					{% for k in i.fellowPlayers %}
 						{% if k.teamId == 200 %}
 						<li class='teamlist'>
-							<image class='small' src="{{ k.championId|url }}">
+							<image class='small' src="{{ k.championId|url }}" title="{{ k.championId|name }}">
 							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
 						</li>
 						{% endif %}
 					{% endfor %}
 					{% if i.teamId = 200 %}
 						<li class='teamlist'>
-							<image class='small' src="{{ i.championId|url }}">
+							<image class='small' src="{{ i.championId|url }}" title="{{ i.championId|name }}">
 							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
 						</li>
 					{% endif %}
@@ -146,3 +146,4 @@
 
 
 </body>
+</html>
