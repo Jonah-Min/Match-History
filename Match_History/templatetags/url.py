@@ -4,11 +4,15 @@ import json
 import time
 import urllib2
 
+#Adding custom header to urllib2 or else it is unauthorized
+opener = urllib2.build_opener()
+opener.addheaders = [('User-agent', 'League of Legends Match History by spoonily')]
+
 CHAMPIMG = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/"
 ITEM = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/item/"
 ICON = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/profileicon/"
 SPELL = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/spell/"
-KEY = "api_key=556973ba-ec24-4a67-8a7f-97272d28b50a"
+KEY = "Get your own at developer.riotgames.com"
 REGION = "na"
 BASE = "https://%s.api.pvp.net/api/lol/%s" % (REGION, REGION)
 
@@ -62,7 +66,7 @@ def summSpell(iconID):
 def itemurl(itemID):
 	itemobj = item.objects.filter(itemID = itemID)
 	if not itemobj:
-		url = "http://hex-color.com/images/1F2B2A.jpg"
+		url = "http://www.colorhexa.com/1f2b2a.png"
 	else:
 		itemobj = item.objects.get(itemID = itemID)
 		itemURL = itemobj.itemUrl
@@ -128,7 +132,7 @@ def getChampName(champID):
 
 #Grabs api json result and converts to dictionary
 def getDict (url):
-	dict = json.loads(urllib2.urlopen(url).read())
+	dict = json.loads(opener.open(url).read())
 	return dict
 
 

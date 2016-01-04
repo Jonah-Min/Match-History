@@ -1,11 +1,14 @@
 import json
-import urllib
 import urllib2
 import time
 import re
 from Match_History.models import champion, item, summonerSpell, summoner
 
-KEY = "api_key=556973ba-ec24-4a67-8a7f-97272d28b50a"
+#Adding custom header to urllib2 or else it's not authorized
+opener = urllib2.build_opener()
+opener.addheaders = [('User-agent', 'League of Legends Match History by spoonily')]
+
+KEY = "Get your own at developer.riotgames.com"
 REGION = "na"
 BASE = "https://%s.api.pvp.net/api/lol/%s" % (REGION, REGION)
 RECENT = "/v1.3/game/by-summoner/"
@@ -39,7 +42,7 @@ def getRecentMatches (summonerID):
 #Access url and converts json to dictionary
 def getDict (url):
 	try:
-   		urllib2.urlopen(url)
+   		opener.open(url)
 	except urllib2.HTTPError, err:
    		if err.code == 404 or err.code == 400:
    			dict = "404"
@@ -50,7 +53,7 @@ def getDict (url):
    		elif err.code == 500 or err.code == 503:
    			dict = "Server is Down, Try Again Later"
        	else:
-       		dict = json.loads(urllib2.urlopen(url).read())
+       		dict = json.loads(opener.open(url).read())
 
 	return dict
 
@@ -84,12 +87,12 @@ def setupChampImage ():
 
 #Sets up item tables
 def setupSumms():
-	item = "%s%s" % (SPELLS, KEY)
-	itemdict = getDict(item)['data']
-	for i in itemdict:
-		ID = itemdict[i]['id']
-		name = itemdict[i]['name']
-		img = itemdict[i]['image']['full']
+	summs = "%s%s" % (SPELLS, KEY)
+	summs = getDict(item)['data']
+	for i in summs:
+		ID = summs[i]['id']
+		name = summs[i]['name']
+		img = summs[i]['image']['full']
 		print ID
 		print name
 		print img
