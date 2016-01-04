@@ -43,31 +43,6 @@ def result(request):
 		recentGames = []
 		error = summonerDict
 		length = 0
-	elif summoner == "acepie":
-		summonerID = summonerDict[summonerName]['id']
-		summonerIcon = "http://static.dnaindia.com/sites/default/files/2015/10/02/361285-john-cena-2.jpg"
-		recentGames = RiotAPI.getRecentMatches(summonerID)
-		length = len(recentGames)
-		error = ""
-	elif summoner == "rouged":
-		summonerID = summonerDict[summonerName]['id']
-		summonerIcon = "https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"
-		recentGames = RiotAPI.getRecentMatches(summonerID)
-		length = len(recentGames)
-		error = ""
-		return render(request, 'Match_History/kiara.html', {'summoner': summoner,
-			'error' : error,
-			'id' : summonerID,
-			'icon' : summonerIcon,
-			'recent' : recentGames,
-			'length' : length,
-			'form' : form})
-	elif summoner == "toona":
-		summonerID = summonerDict[summonerName]['id']
-		summonerIcon = "http://freesamples2fillupyourmailbox.com/wp-content/uploads/2015/04/morton.jpg"
-		recentGames = RiotAPI.getRecentMatches(summonerID)
-		length = len(recentGames)
-		error = ""
 	else:
 		summonerID = summonerDict[summonerName]['id']
 		summonerIcon = summonerDict[summonerName]['profileIconId']
