@@ -41,7 +41,7 @@ def url(ChampionID):
 @register.filter(name = 'summicon')
 def summicon(iconID):
 	if iconID < 0:
-		url = "http://i.imgur.com/YwtIiZT.jpg"
+		url = "http://hex-color.com/images/1F2B2A.jpg"
 	elif isinstance(iconID, str):
 		url = iconID
 	else:
