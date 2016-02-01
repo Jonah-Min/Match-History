@@ -8,10 +8,10 @@ import urllib2
 opener = urllib2.build_opener()
 opener.addheaders = [('User-agent', 'League of Legends Match History by spoonily')]
 
-CHAMPIMG = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/"
-ITEM = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/item/"
-ICON = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/profileicon/"
-SPELL = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/spell/"
+CHAMPIMG = "http://ddragon.leagueoflegends.com/cdn/6.2.1/img/champion/"
+ITEM = "http://ddragon.leagueoflegends.com/cdn/6.2.1/img/item/"
+ICON = "http://ddragon.leagueoflegends.com/cdn/6.2.1/img/profileicon/"
+SPELL = "http://ddragon.leagueoflegends.com/cdn/6.2.1/img/spell/"
 KEY = "Get your own at developer.riotgames.com"
 REGION = "na"
 BASE = "https://%s.api.pvp.net/api/lol/%s" % (REGION, REGION)

@@ -16,8 +16,8 @@ SUMMONER = "/v1.4/summoner/by-name/"
 CHAMPION = "https://na.api.pvp.net/api/lol/static-data/%s/v1.2/champion/" % (REGION)
 SPELLS = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell?spellData=image&"
 ITEM = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=image&"
-CHAMPIMG = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/"
-IMG = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/item/"
+CHAMPIMG = "http://ddragon.leagueoflegends.com/cdn/6.2.1/img/champion/"
+IMG = "http://ddragon.leagueoflegends.com/cdn/6.2.1/img/item/"
 
 #Gets summoner dictionary
 def getSummoner (summonerName):
