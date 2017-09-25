@@ -54,7 +54,9 @@ input[type=submit] {
 	border: 0px;
 	width: 120px;
 	height: 25px;
-	font-size: 20px;
+	line-height: 22px;
+	font-size: 15px;
+	text-transform: capitalize;
 	font-family: Arial;
 	vertical-align: bottom;
 }
@@ -86,9 +88,10 @@ input[name='summoner2'] {
 	font-size: 25pt;
 	margin-left: 0px;
 	margin-bottom: 200px;
+	text-transform: uppercase;
 }
 
-#banner {
+#profile-banner {
 	position: relative;
 	width: 100%;
 	height: 80px;
@@ -123,12 +126,11 @@ input[name='summoner2'] {
 	position: relative;
 }
 
-#history {
+#match-history {
 	margin-left: auto;
 	margin-right: auto;
 	border-collapse: collapse;
 	border-spacing: 0;
-	display: block;
 	margin-bottom: 20px;
 }
 
@@ -160,6 +162,7 @@ input[name='summoner2'] {
 	height: 35px;
 	width: 35px;
 	border: 3px solid #3e5655;
+	margin-bottom: 3px;
 }
 
 .result {
@@ -174,14 +177,14 @@ input[name='summoner2'] {
 
 .red {
 	height: 100px;
-	width: 300px;
+	width: 385px;
 	background-color: #d79b9d;
 	border: 0px;
 }
 
 .blue {
 	height: 100px;
-	width: 300px;
+	width: 385px;
 	background-color: #9bbbd7;
 	border: 0px;
 }
@@ -223,9 +226,11 @@ th {
 
 .small {
 	border: 2px solid #3e5655;
-	height: 20px;
-	width: 20px;
+	height: 30px;
+	width: 30px;
 	vertical-align: middle;
+	box-sizing: border-box;
+	margin-bottom: 2px;
 }
 
 .img {
@@ -249,6 +254,14 @@ th {
 	border: 0;
 }
 
+.img_small {
+	height: 20px;
+	width: 20px;
+	padding: 1px;
+	border: 2px solid #3e5655;
+	vertical-align: middle;
+}
+
 .items {
 	width: 150px;
 	background-color: #7cacaa;
@@ -265,7 +278,7 @@ th {
 	margin-bottom: 10px;
 }
 
-#icon {
+#summoner-icon {
 	width: 75px;
 	height: 75px;
 	margin-left: 10px;
@@ -281,14 +294,32 @@ th {
 
 button {
 	background:none;
+	white-space: pre;
     border:none; 
     cursor: pointer;
-    font-family: Lucida, Verdana, Arial;
-    font-size: 12pt;
+    vertical-align: middle;
+    font-size: 10pt;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.name_kda {
+	display: inline-block;
+	font-family: Lucida, Verdana, Arial;
+    font-size: 8pt;
+    width: 100px;
     color: #505050;
+    text-align: center;
+    height: 30px;
     vertical-align: middle;
 }
 
 .teamlist {
-	padding: 2px;
+	padding: 3px;
+}
+
+.item-list-small {
+	display: inline-block;
 }

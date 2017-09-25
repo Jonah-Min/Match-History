@@ -11,49 +11,28 @@ def index(request):
 
 def result(request):
 
+	# Grab summoner name from form when submitted
 	if request.method == 'POST':
 		form = summonerForm(request.POST)
 		data = request.POST.get('summoner')
 
+	# Grab summoner information
 	summoner = data
 	summonerName = RiotAPI.formatSummonerName(summoner)
 	summonerDict = RiotAPI.getSummoner(summonerName)
 
-	if summonerDict == "404":
-		summonerID = summoner
-		summonerIcon = -1
-		recentGames = []
-		error = summonerDict
-		length = 0
-	elif summonerDict == "401":
-		summonerID = summoner
-		summonerIcon = -1
-		recentGames = []
-		error = summonerDict
-		length = 0
-	elif summonerDict == "429":
-		summonerID = summoner
-		summonerIcon = -1
-		recentGames = []
-		error = "Rate Limit Exceeded, Try Again Later"
-		length = 0
-	elif summonerDict == "Server is Down, Try Again Later":
-		summonerID = summoner
-		summonerIcon = -1
-		recentGames = []
-		error = summonerDict
-		length = 0
-	else:
-		summonerID = summonerDict[summonerName]['id']
-		summonerIcon = summonerDict[summonerName]['profileIconId']
-		recentGames = RiotAPI.getRecentMatches(summonerID)
-		length = len(recentGames)
-		error = ""
+	# Grab match data for summoner
+	summonerID = summonerDict['accountId']
+	summonerIcon = summonerDict['profileIconId']
+	recentGames = RiotAPI.getRecentMatches(summonerID)
 
-	return render(request, 'Match_History/result.html', {'summoner': summoner,
-		'error' : error,
+	length = len(recentGames)
+
+	return render(request, 'Match_History/result.html', {
+		'summoner': summoner,
 		'id' : summonerID,
 		'icon' : summonerIcon,
 		'recent' : recentGames,
 		'length' : length,
-		'form' : form})
+		'form' : form
+	})

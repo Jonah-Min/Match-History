@@ -1,0 +1,145 @@
+
+<head>
+	<meta charset="utf-8"> 
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+	<meta name="author" content="Created by Jonah Min">
+	<meta name="description" content="Small League of Legends Match History">
+
+	{% load staticfiles %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'Match_History/format.css' %}"/>
+	<title>{{ summoner }}</title>
+</head>
+
+<body>
+
+
+	{% load url %}
+
+	<form method='post' action="/summoner/history/">
+		<div id='banner'>
+
+			<image id='icon' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"  />
+
+			<div id='summoner'>
+				<h3 id='summonername'>{{ summoner }}</h3>
+			</div>
+
+			{% csrf_token %}
+			<div id='nextSearch'>
+				<div id='inside'>
+					{{ form }}
+					<input type='submit' name='submit' value='Search'/>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	{% if error == "Summoner Not Found" %}
+	<h2>Summoner Not Found</h2>
+	{% else %}
+
+	<table id='history'>
+		{% for i in recent %}
+		<tr class='short'>
+			<th colspan="3">
+				<p class='game'>{{ i.subType|format }}</p>
+			</th>
+			<th colspan="2">
+				<p class='time'>{{ i.stats.timePlayed|timeformat }}</p>
+			</th>
+		</tr>
+		<tr>
+			{% if i.stats.win == True %}
+				<td class='win'></td>
+				<td class='result'>
+					<image class='img-circle' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
+					<div class='score'>
+						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+					</div>
+					<div class='spells'>
+						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
+						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
+					</div>
+				</td>
+			{% else %}
+				<td class='loss'></td>
+				<td class='result'>
+					<image class='img-circle' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
+					<div class='score'>
+						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+					</div>
+					<div class='spells'>
+						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
+						<image class='summs' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"/>
+					</div>
+				</td>
+			{% endif %}
+
+			<td class='items'>
+				<table class='itemtable'>
+						<tr>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+						</tr>
+						<tr>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+						</tr>
+						<tr>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+							<td class='imageicon'><image class='img' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg"></td>
+						</tr>
+				</table>
+			</td>
+
+			<form method='post' action='/summoner/history/'>
+			{% csrf_token %}
+
+			<td class='blue'>
+				<ul class='players'>
+					{% for k in i.fellowPlayers %}
+						{% if k.teamId == 100 %}
+						<li class='teamlist'>
+							<image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg">
+							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+						</li>
+						{% endif %}
+					{% endfor %}
+					{% if i.teamId = 100 %}
+						<li class='teamlist'>
+							<image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg">
+							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
+						</li>
+					{% endif %}
+				</ul>
+			</td>
+
+			<td class='red'>
+				<ul class='players'>
+					{% for k in i.fellowPlayers %}
+						{% if k.teamId == 200 %}
+						<li class='teamlist'>
+							<image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg">
+							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+						</li>
+						{% endif %}
+					{% endfor %}
+					{% if i.teamId = 200 %}
+						<li class='teamlist'>
+							<image class='small' src="https://pmcdeadline2.files.wordpress.com/2013/02/minion__130211164715.jpg">
+							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
+						</li>
+					{% endif %}
+				</ul>
+			</td>
+		</form>
+
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+
+
+</body>

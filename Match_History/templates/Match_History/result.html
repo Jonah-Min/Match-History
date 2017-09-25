@@ -1,12 +1,16 @@
 <html>
 <head>
+
 	<meta charset="utf-8"> 
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 	<meta name="author" content="Created by Jonah Min">
 	<meta name="description" content="Small League of Legends Match History">
+
 	{% load staticfiles %}
+
 	<link rel="stylesheet" type="text/css" href="{% static 'Match_History/format.css' %}"/>
 	<title>{{ summoner }}</title>
+
 </head>
 
 <body>
@@ -14,9 +18,9 @@
 	{% load url %}
 
 	<form method='post' action="/summoner/history/">
-		<div id='banner'>
+		<div id='profile-banner'>
 
-			<image id='icon' src="{{ icon|summicon }}"  />
+			<image id='summoner-icon' src="{{ icon|summicon }}"  />
 
 			<div id='summoner'>
 				<h3 id='summonername'>{{ summoner }}</h3>
@@ -36,39 +40,39 @@
 	<h2>Summoner Not Found</h2>
 	{% else %}
 
-	<table id='history'>
+	<table id='match-history'>
 		{% for i in recent %}
-		<tr class='short'>
+		<tr class='general-information'>
 			<th colspan="3">
-				<p class='game'>{{ i.subType|format }}</p>
+				<p class='game'>RANKED</p>
 			</th>
 			<th colspan="2">
-				<p class='time'>{{ i.stats.timePlayed|timeformat }}</p>
+				<p class='time'>{{ i.gameDuration|timeformat }}</p>
 			</th>
 		</tr>
 		<tr>
-			{% if i.stats.win == True %}
+			{% if i.user.win %}
 				<td class='win'></td>
 				<td class='result'>
-					<image class='img-circle' src="{{ i.championId|url }}" title="{{ i.championId|name }}"/>
+					<image class='img-circle' src="{{ i.champion|champImage }}" title="{{ i.champion|name }}"/>
 					<div class='score'>
-						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %}/ {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+						<h6>{{ i.user.kills}}&nbsp;/&nbsp;{{ i.user.deaths }}&nbsp;/&nbsp;{{ i.user.assists }}</h6>
 					</div>
 					<div class='spells'>
-						<image class='summs' src="{{ i.spell1|summspell }}"/>
-						<image class='summs' src="{{ i.spell2|summspell }}"/>
+						<image class='summs' src="{{ i.user.spell1|summspell }}"/>
+						<image class='summs' src="{{ i.user.spell2|summspell }}"/>
 					</div>
 				</td>
 			{% else %}
 				<td class='loss'></td>
 				<td class='result'>
-					<image class='img-circle' src="{{ i.championId|url }}" title="{{ i.championId|name }}"/>
+					<image class='img-circle' src="{{ i.champion|champImage }}" title="{{ i.champion|name }}"/>
 					<div class='score'>
-						<h6> {% if not i.stats.championsKilled %} 0 {% else %} {{ i.stats.championsKilled }} {% endif %} / {% if not i.stats.numDeaths %} 0 {% else %} {{ i.stats.numDeaths }} {% endif %} / {% if not i.stats.assists %} 0 {% else %} {{ i.stats.assists }} {% endif %}</h6>
+						<h6>{{ i.user.kills}}&nbsp;/&nbsp;{{ i.user.deaths }}&nbsp;/&nbsp;{{ i.user.assists }}</h6>
 					</div>
 					<div class='spells'>
-						<image class='summs' src="{{ i.spell1|summspell }}"/>
-						<image class='summs' src="{{ i.spell2|summspell }}"/>
+						<image class='summs' src="{{ i.user.spell1|summspell }}"/>
+						<image class='summs' src="{{ i.user.spell2|summspell }}"/>
 					</div>
 				</td>
 			{% endif %}
@@ -77,29 +81,29 @@
 				<table class='itemtable'>
 						<tr>
 							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item0|desc }}" src="{{ i.stats.item0|itemimg }}">
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item0|desc }}" src="{{ i.user.item0|itemimg }}">
 							</td>
 							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item1|desc }}" src="{{ i.stats.item1|itemimg }}">
-							</td>
-						</tr>
-						<tr>
-							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item2|desc }}" src="{{ i.stats.item2|itemimg }}">
-							</td>
-							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item3|desc }}" src="{{ i.stats.item3|itemimg }}">
-							</td>
-							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item6|desc }}" src="{{ i.stats.item6|itemimg }}">
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item1|desc }}" src="{{ i.user.item1|itemimg }}">
 							</td>
 						</tr>
 						<tr>
 							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item4|desc }}" src="{{ i.stats.item4|itemimg }}">
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item2|desc }}" src="{{ i.user.item2|itemimg }}">
 							</td>
 							<td class='imageicon'>
-								<image class='img' data-toggle="tooltip" title="{{ i.stats.item5|desc }}" src="{{ i.stats.item5|itemimg }}">
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item3|desc }}" src="{{ i.user.item3|itemimg }}">
+							</td>
+							<td class='imageicon'>
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item6|desc }}" src="{{ i.user.item6|itemimg }}">
+							</td>
+						</tr>
+						<tr>
+							<td class='imageicon'>
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item4|desc }}" src="{{ i.user.item4|itemimg }}">
+							</td>
+							<td class='imageicon'>
+								<image class='img' data-toggle="tooltip" title="{{ i.user.item5|desc }}" src="{{ i.user.item5|itemimg }}">
 							</td>
 						</tr>
 				</table>
@@ -110,39 +114,47 @@
 
 			<td class='blue'>
 				<ul class='players'>
-					{% for k in i.fellowPlayers %}
-						{% if k.teamId == 100 %}
+					{% for k in i.teams.blueTeam %}
 						<li class='teamlist'>
-							<image class='small' src="{{ k.championId|url }}" title="{{ k.championId|name }}">
-							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+							<image class='small' src="{{ k.championId|champImage }}" title="{{ k.championId|name }}">
+							<span class='name_kda'>
+								<button name="summoner" type="submit" value="{{ k.summonerName }}">{{ k.summonerName}}</button><br>
+								{{ k.kills}}&nbsp;/&nbsp;{{ k.deaths }}&nbsp;/&nbsp;{{ k.assists }}
+							</span>
+							<div class='item-list-small'>
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item0|desc }}" src="{{ k.item0|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item1|desc }}" src="{{ k.item1|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item2|desc }}" src="{{ k.item2|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item3|desc }}" src="{{ k.item3|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item4|desc }}" src="{{ k.item4|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item5|desc }}" src="{{ k.item5|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item6|desc }}" src="{{ k.item6|itemimg }}">
+							</div>
 						</li>
-						{% endif %}
 					{% endfor %}
-					{% if i.teamId = 100 %}
-						<li class='teamlist'>
-							<image class='small' src="{{ i.championId|url }}" title="{{ i.championId|name }}">
-							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
-						</li>
-					{% endif %}
 				</ul>
 			</td>
 
 			<td class='red'>
 				<ul class='players'>
-					{% for k in i.fellowPlayers %}
-						{% if k.teamId == 200 %}
+					{% for k in i.teams.redTeam %}
 						<li class='teamlist'>
-							<image class='small' src="{{ k.championId|url }}" title="{{ k.championId|name }}">
-							<button name="summoner" type="submit" value="{{ k.summonerId|summ }}">{{ k.summonerId|summ }}</button>
+							<image class='small' src="{{ k.championId|champImage }}" title="{{ k.championId|name }}">
+							<span class='name_kda'>
+								<button name="summoner" type="submit" value="{{ k.summonerName }}">{{ k.summonerName}}</button><br>
+								{{ k.kills}}&nbsp;/&nbsp;{{ k.deaths }}&nbsp;/&nbsp;{{ k.assists }}
+							</span>
+							<div class='item-list-small'>
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item0|desc }}" src="{{ k.item0|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item1|desc }}" src="{{ k.item1|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item2|desc }}" src="{{ k.item2|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item3|desc }}" src="{{ k.item3|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item4|desc }}" src="{{ k.item4|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item5|desc }}" src="{{ k.item5|itemimg }}">
+								<image class='img_small' data-toggle="tooltip" title="{{ k.item6|desc }}" src="{{ k.item6|itemimg }}">
+							</div>
 						</li>
-						{% endif %}
 					{% endfor %}
-					{% if i.teamId = 200 %}
-						<li class='teamlist'>
-							<image class='small' src="{{ i.championId|url }}" title="{{ i.championId|name }}">
-							<button name="summoner" type="submit" value="{{ summoner }}">{{ summoner }}</button>
-						</li>
-					{% endif %}
 				</ul>
 			</td>
 
